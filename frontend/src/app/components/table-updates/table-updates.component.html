@@ -1,3 +1,37 @@
-<div *ngFor="let row of tableData">
-  <div>{{ row.key }}: {{ row.cusip }} - {{ row.account }} - {{ row.netposition }} - {{ row.price }}</div>
-</div>
+Hi~! I'm table-updates component.
+<button (click)="fetchFullPosition()">Get Full Position</button>
+<table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+
+  <!-- Key Column -->
+  <ng-container matColumnDef="key">
+    <th mat-header-cell *matHeaderCellDef> Key </th>
+    <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+  </ng-container>
+
+  <!-- Cusip Column -->
+  <ng-container matColumnDef="cusip">
+    <th mat-header-cell *matHeaderCellDef> Cusip </th>
+    <td mat-cell *matCellDef="let element"> {{element.cusip}} </td>
+  </ng-container>
+
+  <!-- Account Column -->
+  <ng-container matColumnDef="account">
+    <th mat-header-cell *matHeaderCellDef> Account </th>
+    <td mat-cell *matCellDef="let element"> {{element.account}} </td>
+  </ng-container>
+
+  <!-- Net Position Column -->
+  <ng-container matColumnDef="netposition">
+    <th mat-header-cell *matHeaderCellDef> Net Position </th>
+    <td mat-cell *matCellDef="let element"> {{element.netposition}} </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

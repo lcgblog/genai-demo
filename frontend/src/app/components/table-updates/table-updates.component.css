@@ -1,0 +1,16 @@
+/* table-updates.component.css */
+table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 8px;
+}
+
+.mat-header-row {
+  background-color: #f1f1f1;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f9f9f9;
+}

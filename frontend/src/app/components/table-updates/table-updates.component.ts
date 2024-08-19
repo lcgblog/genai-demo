@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
@@ -7,25 +6,19 @@ import { WebSocketService } from '../../services/web-socket.service';
   templateUrl: './table-updates.component.html',
   styleUrls: ['./table-updates.component.css']
 })
-export class TableUpdatesComponent implements OnInit, OnDestroy {
-  public tableData: any[] = [];
-  private subscription: Subscription = new Subscription();
+export class TableUpdatesComponent implements OnInit {
+  tableData: any[] = [];
+  displayedColumns: string[] = ['key', 'cusip', 'account', 'netposition', 'price'];
 
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.webSocketService.sendMessage({ destination: '/app/getFullPosition' });
-
-    const messageSubscription = this.webSocketService.getMessages().subscribe((message) => {
-      if (message.destination === '/topic/fullPosition' || message.destination === '/topic/positionUpdates') {
-        this.tableData = message.body;
-      }
+    this.webSocketService.getPositionUpdates().subscribe(data => {
+      this.tableData = data;
     });
-
-    this.subscription.add(messageSubscription);
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  fetchFullPosition(): void {
+    this.webSocketService.getPosition();
   }
 }
