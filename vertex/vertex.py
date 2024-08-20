@@ -1,6 +1,5 @@
 import os
 import vertexai
-import grpc
 
 
 from vertexai.generative_models import GenerativeModel
