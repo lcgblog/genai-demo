@@ -1,45 +1,40 @@
-// web-socket.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Client, Message, over } from 'webstomp-client';
-
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private stompClient: Client;
-  private positionSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  private positionSocket$: WebSocketSubject<any> | undefined;
 
-  constructor() {
-    console.log('WebSocketService creating');
-    const socket = new WebSocket('ws://localhost:8080/ws');
-    this.stompClient = over(socket);
-    this.stompClient.connect({}, () => {
-      this.onConnect();
-    });  
+  constructor(private http: HttpClient) { 
   }
 
-  private onConnect(): void {
-    // Subscribe to the position topic
-    this.stompClient.subscribe('/topic/fullPosition', (message: Message) => {
-      this.positionSubject.next(JSON.parse(message.body));
+  getPositions(topic: string, subscription: (value: any) => void): void {
+    this.positionSocket$ = webSocket(`ws://localhost:8008/table/ws/${topic}`);
+    this.positionSocket$.next({});
+    this.positionSocket$.subscribe({
+      next: (value: any) => {
+        // Handle received value
+        subscription(value);
+      },
+      error: (error: any) => {
+        // Handle error
+        console.error('WebSocket error:', error);
+      },
+      complete: () => {
+        // Handle completion
+        console.log('WebSocket connection closed');
+      }
     });
-    console.log('WebSocketService connected');
   }
 
-  // Send getPosition request
-  public getPosition(): void {
-    this.stompClient.send('/app/getFullPosition');
-  }
-
-  // Get position updates as an Observable
-  public getPositionUpdates(): Observable<any> {
-    return this.positionSubject.asObservable();
-  }
-
-  public disconnect(): void {
-    if (this.stompClient) {
-      this.stompClient.disconnect();
-    }
+  addPosition(position: any): void {
+    // Add your code here
+    this.http.post('http://localhost:8008/table/addPosition', position).subscribe(
+      response => {
+        console.log('Position added:', response);
+      }
+    );
   }
 }

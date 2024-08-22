@@ -5,23 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "Launch Java Program",
+            "name": "AppMain",
+            "type": "debugpy",
             "request": "launch",
-            "mainClass": ""
-        },
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "DemoApplication",
-            "request": "launch",
-            "mainClass": "com.citi.onepx.genaidemo.demo.DemoApplication",
-            "projectName": "backend"
+            "program": "app/main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+            }
         }
     ]
 }

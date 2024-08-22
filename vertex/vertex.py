@@ -15,7 +15,7 @@ class VertexGenAI:
         return self.model.generate_content(prompt)
 
 if __name__ == "__main__":
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'key/genaidemo-433009-31673d223052.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'vertex/key/genaidemo-433009-31673d223052.json'
     os.environ['HTTPS_PROXY'] = ''
     os.environ['HTTP_PROXY'] = ''
     gen_ai = VertexGenAI()

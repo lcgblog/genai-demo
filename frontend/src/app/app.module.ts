@@ -1,3 +1,4 @@
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'; // Import provideHttpClient and withInterceptorsFromDi
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -16,9 +17,12 @@ import { TableUpdatesComponent } from './components/table-updates/table-updates.
     MatTableModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    
     // other imports
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()) // Provide HttpClient with interceptors from DI
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

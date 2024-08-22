@@ -13,12 +13,12 @@ export class TableUpdatesComponent implements OnInit {
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.webSocketService.getPositionUpdates().subscribe(data => {
+    this.webSocketService.getPositions('mockUser', data => {
       this.tableData = data;
     });
   }
 
-  fetchFullPosition(): void {
-    this.webSocketService.getPosition();
+  addPosition(): void {
+    this.webSocketService.addPosition({key:"123"})
   }
 }
