@@ -8,7 +8,7 @@
             "name": "AppMain",
             "type": "debugpy",
             "request": "launch",
-            "program": "app/main.py",
+            "program": "backend/main.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONDONTWRITEBYTECODE": "1"
