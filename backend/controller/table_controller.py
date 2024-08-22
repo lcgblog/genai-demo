@@ -1,12 +1,13 @@
 from typing import List
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from service.vertex_service import VertexService
 from service.table_service import TableService
 from schema.position_schema import Position
 
 table_controller = APIRouter()
 table_service = TableService()
+vertex_service = VertexService()
 
-# # 存储活动WebSocket连接
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
@@ -47,6 +48,7 @@ async def add_position(position: Position = Position(key="")):
     await table_service.add_position(position)
     positions = await table_service.get_table_data()
     print("added position current:", positions)
+    vertex_service.say_joke(topic="dog")
     await manager.broadcast(positions)
     return {"message": "Position added"}
 

@@ -5,7 +5,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.prompts import HumanMessagePromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain_google_vertexai import VertexAI
-from vertex_client import VertexClient
+from vertex.vertex_client import VertexClient
 
 client = VertexClient()
 model = VertexAI(temperature=0.1, model_name="gemini-1.5-flash-001", max_tokens=1000, max_retries=0)

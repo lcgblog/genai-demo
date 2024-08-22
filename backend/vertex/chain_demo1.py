@@ -1,7 +1,7 @@
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_vertexai import VertexAI
-from vertex_client import VertexClient
+from vertex.vertex_client import VertexClient
 
 client = VertexClient()
 
